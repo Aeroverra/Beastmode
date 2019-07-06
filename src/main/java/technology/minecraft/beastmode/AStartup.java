@@ -4,11 +4,15 @@ public abstract class AStartup implements Runnable
 {
 	private ServiceCollection serviceCollection = new ServiceCollection();
 
-
-	public void run()
+	public AStartup()
 	{
 		ConfigureServices(serviceCollection);
 	}
 
-	abstract void ConfigureServices(ServiceCollection services);
+	public void run()
+	{
+
+	}
+
+	public abstract void ConfigureServices(ServiceCollection services);
 }

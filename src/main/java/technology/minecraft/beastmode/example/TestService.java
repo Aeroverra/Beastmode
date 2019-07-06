@@ -1,13 +1,12 @@
 package technology.minecraft.beastmode.example;
 
-import okhttp3.OkHttpClient;
-
 public class TestService
 {
-	public OkHttpClient client;
-	public TestService(OkHttpClient client)
+	public ExampleSingleton exampleSingleton;
+
+	public TestService(ExampleSingleton exampleSingleton)
 	{
-		this.client = client;
+		this.exampleSingleton = exampleSingleton;
 	}
 
 }

@@ -4,14 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>technology.minecraft</groupId>
 	<artifactId>beastmode</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>BeastMode</name>
-	<description>A service manager for all future projects</description>
+	<description>A simple way to write java code in a service based way.</description>
 
-<dependencies>
-	<dependency>
-		<groupId>com.squareup.okhttp3</groupId>
-		<artifactId>okhttp</artifactId>
-		<version>3.12.0</version>
-	</dependency>
-</dependencies></project>
+	<dependencies>
+	</dependencies>
+</project>

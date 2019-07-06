@@ -20,6 +20,7 @@ public class Application
 		services.addSingleton(ExampleSingleton.class);
 		services.addTransient(TestService.class);
 		services.addTransient(FakeDBService.class);
+		services.addSingleton(Example2Singleton.class);
 
 		FakeLoggerService test = services.getRequiredService(FakeLoggerService.class);
 		System.out.println(test.testService);

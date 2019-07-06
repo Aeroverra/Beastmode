@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class ServiceCollection
 {
 	HashMap<Class<?>, Object> singletons = new HashMap<Class<?>, Object>();
-	
+
 	// All known non singleton services
 	HashMap<Class<?>, ServiceType> services = new HashMap<Class<?>, ServiceType>();
 
@@ -41,6 +41,18 @@ public class ServiceCollection
 		// reason to use multiple constructors so this possibility is not yet handled
 		Constructor<?> cons = constructors[0];
 		Class<?>[] params = cons.getParameterTypes();
+		if (params.length == 0)
+		{
+			try
+			{
+				return classOfT.newInstance();
+			}
+			catch (Exception e)
+			{
+				throw new RuntimeException(e);
+			}
+
+		}
 		Object[] paramValues = new Object[params.length];
 		for (int x = 0; x < params.length; x++)
 		{
@@ -108,20 +120,15 @@ public class ServiceCollection
 
 	/*
 	 * This should have no constructor and will be instantiated once for the life of
-	 * the service collection
+	 * the service collection.
+	 * Please note you must add this after adding other required services if the singleton has a constructor
 	 */
 	public <T> void addSingleton(Class<T> classOfT)
 	{
-		try
-		{
-			T object = classOfT.newInstance();
-			singletons.put(classOfT, object);
-		}
-		catch (Exception e)
-		{
+		
+		T object = getRequiredService(classOfT);
+		singletons.put(classOfT, object);
 
-			throw new RuntimeException(e);
-		}
 	}
 
 	/*

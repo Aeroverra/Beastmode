@@ -30,9 +30,14 @@ public class ServiceCollection
 	@SuppressWarnings("unchecked")
 	private <T> T getRequiredService(Class<T> classOfT, HashMap<Class<?>, Object> scopes)
 	{
+		// If this is not instantiated in must mean we have not done any recursion yet
 		if (scopes == null)
 		{
-			// If this is not instantiated in must mean we have not done any recursion yet
+			//Checks if we have a singleton of this class already instantiated
+			if (singletons.containsKey(classOfT))
+			{
+				return (T) singletons.get(classOfT);
+			}
 			scopes = new HashMap<Class<?>, Object>();
 		}
 		T object = null;
@@ -88,6 +93,7 @@ public class ServiceCollection
 		}
 		catch (Exception e)
 		{
+			// System.out.println("[ERROR] "+e.getMessage()+"\r\n");
 			throw new RuntimeException(e);
 		}
 
@@ -120,12 +126,12 @@ public class ServiceCollection
 
 	/*
 	 * This should have no constructor and will be instantiated once for the life of
-	 * the service collection.
-	 * Please note you must add this after adding other required services if the singleton has a constructor
+	 * the service collection. Please note you must add this after adding other
+	 * required services if the singleton has a constructor
 	 */
 	public <T> void addSingleton(Class<T> classOfT)
 	{
-		
+
 		T object = getRequiredService(classOfT);
 		singletons.put(classOfT, object);
 
